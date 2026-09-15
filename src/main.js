@@ -177,7 +177,8 @@ function start(book) {
   feed.focus({ preventScroll: true });
 }
 
-fetch('./book.json')
+// Always revalidate: the book behind this URL gets swapped (rotation, private copies).
+fetch('./book.json', { cache: 'no-cache' })
   .then((res) => {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
