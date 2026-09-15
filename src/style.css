@@ -151,6 +151,107 @@ body {
   text-overflow: ellipsis;
 }
 
+/* ---------- Page number + jump ---------- */
+
+.page-num {
+  position: absolute;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 4%);
+  translate: -50% 0;
+  padding: 0.5rem 0.9rem; /* generous tap target */
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.page-num span {
+  opacity: 0.6;
+}
+
+.page-num:hover,
+.page-num:focus-visible {
+  color: var(--accent);
+}
+
+.jump-link {
+  margin-top: 2rem;
+  padding: 0.4rem 0.8rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+
+.jump {
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 1rem);
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.6rem 0.6rem 1.1rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.15);
+  font-size: 0.9375rem;
+  white-space: nowrap;
+}
+
+.jump[hidden] {
+  display: none;
+}
+
+.jump label,
+.jump-total {
+  color: var(--ink-soft);
+}
+
+.jump input {
+  width: 4.5em;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem; /* 16px+ stops iOS zooming in on focus */
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.jump input::-webkit-inner-spin-button,
+.jump input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.jump input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.jump button {
+  padding: 0.4rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--paper);
+  font: inherit;
+  cursor: pointer;
+}
+
 /* ---------- Cover ---------- */
 
 .cover-inner,

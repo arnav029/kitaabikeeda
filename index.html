@@ -25,6 +25,13 @@
       <p class="status">Opening the book…</p>
     </main>
 
+    <form class="jump" hidden novalidate>
+      <label for="jump-input">Go to page</label>
+      <input id="jump-input" type="number" inputmode="numeric" min="1" enterkeyhint="go" autocomplete="off" />
+      <span class="jump-total"></span>
+      <button type="submit">Go</button>
+    </form>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

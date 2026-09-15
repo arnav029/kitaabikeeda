@@ -34,7 +34,10 @@ npm run book     # regenerate public/book.json from content/*.txt
 - **Fit safety net**: if a page would still overflow its safe zone on a small
   screen, its text size is reduced by up to three small steps. This is measured
   one screen ahead, so the text never visibly shrinks.
-- **Keys** (desktop): ↑/↓, PgUp/PgDn, Space, j/k, Home/End.
+- **Page numbers**: each page shows `12 / 169` at the bottom. Tap it (or the
+  cover's "Go to page…", or press `g`) to jump to any page. The URL keeps the
+  current page (`#12`), so a reload or a saved link reopens it.
+- **Keys** (desktop): ↑/↓, PgUp/PgDn, Space, j/k, Home/End, g (go to page).
 
 ## Swapping the book
 
