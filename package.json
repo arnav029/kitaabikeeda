@@ -1,0 +1,16 @@
+{
+  "name": "kitaabikeeda",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "book": "node scripts/build-book.mjs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test scripts/*.test.mjs"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0"
+  }
+}

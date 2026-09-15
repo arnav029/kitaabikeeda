@@ -1,0 +1,278 @@
+:root {
+  --paper: #f5efe3;
+  --ink: #2a2520;
+  --ink-soft: #7a6f62;
+  --rule: rgb(42 37 32 / 0.12);
+  --accent: #9a4a2c;
+
+  --serif: 'Literata', Georgia, 'Times New Roman', serif;
+  --text-size: clamp(1.0625rem, 0.95rem + 0.9vw, 1.375rem);
+  --measure: 31em; /* ~60 characters per line */
+  --gutter: max(1.5rem, env(safe-area-inset-left), env(safe-area-inset-right));
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #15130f;
+    --ink: #e7dfd2;
+    --ink-soft: #9a8f80;
+    --rule: rgb(231 223 210 / 0.14);
+    --accent: #d88a66;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Feed: one snap point per screen ---------- */
+
+.feed {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  outline: none;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+.screen {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* one flick = one screen, like Reels */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 100vh;
+}
+
+/* Text lives only in the middle ~70%; top and bottom 15% are for chrome. */
+.safe {
+  position: absolute;
+  inset: 15% var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.status {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ---------- Page text ---------- */
+
+.text {
+  width: 100%;
+  max-width: var(--measure);
+  /* --fit is set per page by main.js when the text would overflow the safe zone */
+  font-size: calc(var(--text-size) * (1 - var(--fit, 0) * 0.07));
+  line-height: 1.62;
+  hyphens: auto;
+  text-wrap: pretty; /* avoids one-word last lines */
+  font-variant-numeric: oldstyle-nums;
+}
+
+.text p {
+  margin: 0;
+}
+
+.text p + p {
+  margin-top: 0.7em;
+}
+
+/* ---------- Top chrome ---------- */
+
+.chrome {
+  position: fixed;
+  z-index: 1;
+  inset: 0 0 auto;
+  padding: calc(env(safe-area-inset-top) + 1rem) var(--gutter) 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.chrome.hidden {
+  opacity: 0;
+}
+
+.progress {
+  height: 2px;
+  max-width: var(--measure);
+  margin: 0 auto;
+  border-radius: 1px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.chapter-label {
+  margin: 0.75rem 0 0;
+  text-align: center;
+  font-size: 0.75rem;
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Cover ---------- */
+
+.cover-inner,
+.chapter-inner,
+.end-inner {
+  max-width: var(--measure);
+  text-align: center;
+}
+
+.cover h1 {
+  margin: 0;
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.author {
+  margin: 1.25rem 0 0;
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+}
+
+.hint {
+  position: absolute;
+  inset: auto 0 calc(env(safe-area-inset-bottom) + 7%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.chevron {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-left: 1.5px solid currentColor;
+  border-top: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  animation: nudge 1.8s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%, 100% { translate: 0 0.25rem; opacity: 0.5; }
+  50% { translate: 0 -0.25rem; opacity: 1; }
+}
+
+/* ---------- Chapter card: a brief visual beat between stories ---------- */
+
+.numeral {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+}
+
+.chapter-card h2 {
+  margin: 1rem 0 0;
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.chapter-inner::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin: 1.75rem auto 0;
+  background: var(--ink-soft);
+  opacity: 0.5;
+}
+
+/* ---------- The End ---------- */
+
+.the-end {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  font-style: italic;
+}
+
+.restart {
+  margin-top: 2rem;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.restart:hover,
+.restart:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.credit {
+  margin: 2.5rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.credit a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    animation: none;
+  }
+  .progress-fill,
+  .chrome {
+    transition: none;
+  }
+}

@@ -1,0 +1,4 @@
+node_modules/
+dist/
+# Personal copies of copyrighted books: local dev only, never commit or deploy.
+private/
